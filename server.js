@@ -32,6 +32,7 @@ const UnitSchema = new mongoose.Schema({
   image: String,
   personal: String,
   crest: String,
+  buddingTalent: String,
   baseStats: {
     hp: Number,
     str: Number,
@@ -55,16 +56,19 @@ const UnitSchema = new mongoose.Schema({
     cha: Number,
   },
   growthRates: {
-    hp: Number,
-    str: Number,
-    mag: Number,
-    dex: Number,
-    spd: Number,
-    lck: Number,
-    def: Number,
-    res: Number,
-    cha: Number,
-  }
+    hp: String,
+    str: String,
+    mag: String,
+    dex: String,
+    spd: String,
+    lck: String,
+    def: String,
+    res: String,
+    cha: String,
+    
+  },
+  startingHouse: String,
+  recruitable: Boolean,
 });
 
 const Unit = mongoose.model("Unit", UnitSchema);
@@ -75,15 +79,10 @@ app.use(morgan("dev")); // logging
 app.use(express.json()); // parse json bodies
 
 // ROUTES //
-// Test Route
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
-
-// Index
-app.get("/units", async (req, res) => {
+// Indexes
+app.get("/", async (req, res) => {
   try {
-      // send all people
+      // displays all units
       res.json(await Unit.find({}));
   } catch (error) {
       //send error
@@ -91,11 +90,10 @@ app.get("/units", async (req, res) => {
   }
 });
 
-// Create
-app.post("/units", async (req, res) => {
+app.get("/roster", async (req, res) => {
   try {
-      // send all units
-      res.json(await Unit.create(req.body));
+      // displays all units
+      res.json(await Unit.find({}));
   } catch (error) {
       //send error
       res.status(400).json(error);
