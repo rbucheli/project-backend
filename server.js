@@ -100,5 +100,15 @@ app.get("/roster", async (req, res) => {
   }
 });
 
+app.post("/", async (req, res) => {
+  try {
+      // create units
+      res.json(await Unit.create(req.body));
+  } catch (error) {
+      //send error
+      res.status(400).json(error);
+  }
+});
+
 // LISTENER //
 app.listen(PORT, () => console.log(`listening on PORT ${PORT}`));
