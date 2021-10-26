@@ -90,7 +90,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/roster", async (req, res) => {
+app.get("/roster/:house", async (req, res) => {
   try {
       // displays all units
       res.json(await Unit.find({}));
